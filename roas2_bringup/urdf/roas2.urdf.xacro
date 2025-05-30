@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="roas">
+  
+  <material name="Black"><color rgba="${1/255} ${1/255} ${1/255} 1.0"/></material>
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0"/></material>
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:include filename="$(find roas2_bringup)/urdf/include/robot.urdf.xacro" />
+  
+  <xacro:include filename="$(find roas2_bringup)/urdf/include/ouster.urdf.xacro"/>
+
+  <!-- Frame -->
+  <link name="top_structure">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://roas2_bringup/meshes/top_structure_roas.stl" />
+    </geometry>
+    <material name="dark_grey"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://roas2_bringup/meshes/top_structure_roas.stl" />
+    </geometry>
+  </collision>
+  </link>
+
+  <joint name="top_structure_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="top_structure" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  
+  <xacro:sensor_ouster parent="top_structure" name="os_sensor">
+      <origin xyz="0 0 0.347" rpy="0 0 0"/>
+  </xacro:sensor_ouster>
+  
+</robot>
